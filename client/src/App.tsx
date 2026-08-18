@@ -14,18 +14,22 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Home from "./pages/Home";
 import Work from "./pages/Work";
+import ProjectDetail from "./pages/ProjectDetail";
 
 function ScrollToTop() {
   const [location] = useLocation();
-  useEffect(() => { window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior }); }, [location]);
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+  }, [location]);
   return null;
 }
+
 function Router() {
-  // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/work" component={Work} />
+      <Route path="/work/:slug" component={ProjectDetail} />
       <Route path="/about" component={About} />
       <Route path="/contact" component={Contact} />
       <Route path="/404" component={NotFound} />
@@ -42,13 +46,17 @@ export default function App() {
           <TooltipProvider>
             <Toaster />
             <ClickSpark>
-            <div className="site-shell">
-              <ScrollToTop />
-              <SiteHeader />
-              <main className="page-wrap"><Router /></main>
-              <SiteFooter />
-              <a className="mobile-phone-rail" href="tel:+251939484533"><span className="signal-dot"></span>+251 93 948 4533</a>
-            </div>
+              <div className="site-shell">
+                <ScrollToTop />
+                <SiteHeader />
+                <main className="page-wrap">
+                  <Router />
+                </main>
+                <SiteFooter />
+                <a className="mobile-phone-rail" href="tel:+251939484533">
+                  <span className="signal-dot"></span>+251 93 948 4533
+                </a>
+              </div>
             </ClickSpark>
           </TooltipProvider>
         </LanguageProvider>

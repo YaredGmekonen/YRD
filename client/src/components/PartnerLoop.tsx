@@ -1,26 +1,65 @@
-/* YRD. Technical Gallery: client and partner names travel as a calm product-record loop. */
-import LogoLoop, { type LogoItem } from "@/components/LogoLoop";
+// YRD. Technical Gallery: static client proof archive grid with 6 verified partner records and central practice panel.
 import { useLanguage } from "@/contexts/LanguageContext";
-
-const partnerRecords: Omit<LogoItem, "description">[] = [
-  { title: "Kerkeha Tech Solutions", href: "https://kerkehatech.com/", src: "/manus-storage/kerkeha-tech_d3441c90.png" },
-  { title: "SiliconLabs", node: "SILICONLABS" },
-  { title: "XO Ethiopia", href: "/work#xo-ethiopia", src: "/manus-storage/xo-ethiopia_99b0676c.png" },
-  { title: "Makiba Digital", src: "/manus-storage/makiba-digital-official-transparent_07a9fa6a.png" },
-  { title: "Hope Photo Studio", src: "/manus-storage/hope-photo-studio_18028aeb.png" },
-  { title: "EYEA", href: "https://eyea.et/", src: "/manus-storage/eyea_b865915d.png" },
-];
 
 export default function PartnerLoop() {
   const { copy } = useLanguage();
-  const partners: LogoItem[] = partnerRecords.map((partner, index) => ({ ...partner, description: copy.partners.entries[index] }));
+  const proof = copy.clientProof;
+
   return (
-    <section className="partner-section partner-section-marquee" aria-label={copy.partners.ariaLabel}>
+    <section className="client-proof-section" aria-label={proof.kicker}>
       <div className="container-wide">
-        <p className="eyebrow"><i className="signal-dot"></i>{copy.partners.kicker}</p>
-      </div>
-      <div className="partner-loop-shell">
-        <LogoLoop logos={partners} ariaLabel={copy.partners.ariaLabel} />
+        {/* Section Header */}
+        <div className="client-proof-header">
+          <p className="eyebrow">
+            <i className="signal-dot"></i>
+            {proof.kicker}
+          </p>
+          <p className="client-proof-note">{proof.note}</p>
+        </div>
+
+        {/* Static Archive Grid */}
+        <div className="client-proof-grid">
+          {/* Central Feature Panel with Verified Practice Statement */}
+          <div className="client-feature-panel">
+            <span className="meta-label">Practice Standard / 001</span>
+            <h3 className="client-feature-statement">{proof.statement}</h3>
+            <p className="client-feature-meta">Addis Ababa, ET · High-Scale Architecture</p>
+          </div>
+
+          {/* 6 Real Logos in Equal Bordered Cells */}
+          <div className="client-cells-wrapper">
+            {proof.clients.map((client, index) => {
+              const cellContent = (
+                <div className="client-cell-inner">
+                  <span className="client-cell-index">0{index + 1}</span>
+                  <div className="client-logo-box">
+                    <img src={client.logo} alt={client.name} className="client-logo-img" />
+                  </div>
+                  <div className="client-cell-info">
+                    <h4 className="client-name">{client.name}</h4>
+                    <span className="client-role">{client.role}</span>
+                  </div>
+                </div>
+              );
+
+              return client.href ? (
+                <a
+                  key={client.name}
+                  href={client.href}
+                  target={client.href.startsWith("http") ? "_blank" : undefined}
+                  rel={client.href.startsWith("http") ? "noreferrer" : undefined}
+                  className="client-cell client-cell-link"
+                >
+                  {cellContent}
+                </a>
+              ) : (
+                <div key={client.name} className="client-cell">
+                  {cellContent}
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </section>
   );
