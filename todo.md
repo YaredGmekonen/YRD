@@ -1,0 +1,39 @@
+# YRD. v2 Revision Checklist
+
+- [x] Prepare a web-safe official-logo asset from the supplied brand sheet.
+- [x] Replace the temporary wordmark/symbol treatment with the official logo system.
+- [x] Add persistent dark/light mode, defaulting to dark on first visit.
+- [x] Add persistent English/Amharic language selection and migrate page copy to translation keys.
+- [x] Provide complete draft Amharic copy for all visible navigation, page, project, and footer content.
+- [x] Replace the hero with the rotating-word concept and restrained interactive dot field.
+- [x] Align motion to the revised budget and test all key pages on desktop and mobile.
+- [x] Prepare supplied partner/client logo assets for web delivery.
+- [x] Add the approved click-spark interaction and a restrained visual transition treatment.
+- [x] Add a scroll-revealed partner/client logo loop with external links.
+- [x] Verify the new interaction and partner loop on desktop and mobile.
+- [ ] Locate and prepare the supplied SiliconLabs and Makiba Digital logo files.
+- [x] Remove the white background from the supplied Makiba logo and export a transparent PNG.
+- [x] Upload and integrate the official Makiba transparent PNG in the partner loop.
+- [x] Move the Trusted By / Partners section directly below the homepage hero.
+- [x] Rebuild the partner row as a seamless 30–40 second horizontal marquee with hover pause.
+- [x] Standardize partner cards and preserve the requested logo order and link behavior.
+- [x] Validate the marquee on desktop and mobile without additional per-logo animations.
+- [x] Review automation guidance and upgrade the static site for secure backend lead handling.
+- [x] Add a lead schema and secure Telegram bot webhook configuration using protected secrets.
+- [x] Build the six-step Telegram client-intake flow and formatted owner notification.
+- [x] Evaluate the owner-only dashboard scope; it is intentionally excluded for the selected Telegram-only intake option.
+- [x] Add the requested gradual-blur visual treatment without obscuring content.
+- [ ] Validate client hand-off, mobile layout, and lead persistence against the live bot webhook.
+- [x] Configure the selected Telegram-only intake path with protected bot credentials.
+- [x] Implement the six-question guided bot flow with a direct-message escape link.
+- [x] Send a formatted intake summary to the owner’s Telegram account.
+- [x] Add and validate the gradual-blur treatment in the website interface.
+- [x] Register the live production webhook URL with Telegram and complete an end-to-end client test.
+- [x] Replace partner-loop placeholders and add concise partner descriptions on hover and focus.
+- [x] Correct the mobile-menu closing behavior after internal navigation.
+- [x] Inspect and repair the reported footer and remaining responsive CSS issues.
+- [x] Validate the updated interaction, loop, and footer on desktop and mobile.
+- [ ] Verify owner-only Telegram controls for intake status and recent leads against the live bot webhook.
+- [x] Capture Telegram username and consented alternate contact information in lead summaries; document that Telegram does not expose client IP addresses to bots.
+- [x] Reduce perceived response latency with Telegram typing indicators and immediate acknowledgement behaviour.
+- [ ] Revalidate the live six-step intake flow, owner notification, and owner-only controls after the bot update.
