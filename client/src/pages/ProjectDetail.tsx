@@ -1,5 +1,6 @@
 import { Link, useRoute } from "wouter";
 import ScrollReveal from "@/components/ScrollReveal";
+import NumberTicker from "@/components/NumberTicker";
 import { useLanguage } from "@/contexts/LanguageContext";
 import NotFound from "@/pages/NotFound";
 
@@ -60,100 +61,97 @@ export default function ProjectDetail() {
       </section>
 
       {/* Dual Mockup Showcase (70% Desktop / 30% Mobile) */}
-      <ScrollReveal>
-        <section className="detail-media-section">
-          <div className="container-wide">
-            <div className="detail-mockup-stage">
-              <div className="detail-desktop-frame">
-                <img src={project.desktopImage} alt={`${project.name} Desktop Interface`} />
-                <span className="case-study-media-label">Desktop System · 01</span>
-              </div>
-              {project.mobileImage && (
-                <div className="detail-mobile-frame">
-                  <img src={project.mobileImage} alt={`${project.name} Mobile View`} />
-                  <span className="case-study-media-label">Mobile UI · 02</span>
-                </div>
-              )}
+      <section className="detail-media-section">
+        <div className="container-wide">
+          <div className="detail-mockup-stage">
+            <div className="detail-desktop-frame">
+              <img src={project.desktopImage} alt={`${project.name} Desktop Interface`} />
+              <span className="case-study-media-label">Desktop System · 01</span>
             </div>
+            {project.mobileImage && (
+              <div className="detail-mobile-frame">
+                <img src={project.mobileImage} alt={`${project.name} Mobile View`} />
+                <span className="case-study-media-label">Mobile UI · 02</span>
+              </div>
+            )}
           </div>
-        </section>
-      </ScrollReveal>
+        </div>
+      </section>
 
       {/* Technical Facts & Architecture Breakdown */}
-      <ScrollReveal>
-        <section className="section section-rule">
-          <div className="container-wide">
-            <div className="case-study-grid">
-              {/* Metadata Sidebar */}
-              <aside className="case-facts">
-                <div className="case-fact">
-                  <span className="meta-label">Role & Scope</span>
-                  <p>{project.role}</p>
+      <section className="section section-rule">
+        <div className="container-wide">
+          <div className="case-study-grid">
+            {/* Metadata Sidebar */}
+            <aside className="case-facts">
+              <div className="case-fact">
+                <span className="meta-label">Role & Scope</span>
+                <p>{project.role}</p>
+              </div>
+              <div className="case-fact">
+                <span className="meta-label">Category</span>
+                <p>{project.category}</p>
+              </div>
+              <div className="case-fact">
+                <span className="meta-label">Platform Status</span>
+                <p>{project.status}</p>
+              </div>
+              <div className="case-fact">
+                <span className="meta-label">Technical Stack</span>
+                <div className="detail-stack-tags">
+                  {project.stack.map((tech) => (
+                    <span key={tech} className="detail-stack-tag">
+                      {tech}
+                    </span>
+                  ))}
                 </div>
+              </div>
+
+              {project.metrics && project.metrics.length > 0 && (
                 <div className="case-fact">
-                  <span className="meta-label">Category</span>
-                  <p>{project.category}</p>
-                </div>
-                <div className="case-fact">
-                  <span className="meta-label">Platform Status</span>
-                  <p>{project.status}</p>
-                </div>
-                <div className="case-fact">
-                  <span className="meta-label">Technical Stack</span>
-                  <div className="detail-stack-tags">
-                    {project.stack.map((tech) => (
-                      <span key={tech} className="detail-stack-tag">
-                        {tech}
-                      </span>
+                  <span className="meta-label">System Metrics</span>
+                  <div className="detail-metrics-grid">
+                    {project.metrics.map((metric) => (
+                      <div key={metric.label} className="detail-metric-item">
+                        <NumberTicker value={metric.value} className="detail-metric-value" />
+                        <span className="detail-metric-label">{metric.label}</span>
+                      </div>
                     ))}
                   </div>
                 </div>
+              )}
+            </aside>
 
-                {project.metrics && project.metrics.length > 0 && (
-                  <div className="case-fact">
-                    <span className="meta-label">System Metrics</span>
-                    <div className="detail-metrics-grid">
-                      {project.metrics.map((metric) => (
-                        <div key={metric.label} className="detail-metric-item">
-                          <span className="detail-metric-value">{metric.value}</span>
-                          <span className="detail-metric-label">{metric.label}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </aside>
-
-              {/* Case Study Deep-Dive Blocks */}
-              <div className="case-body">
-                {project.caseBlocks.map((block) => (
-                  <article className="case-body-block" key={block.title}>
+            {/* Case Study Deep-Dive Blocks */}
+            <div className="case-body">
+              {project.caseBlocks.map((block) => (
+                <ScrollReveal key={block.title}>
+                  <article className="case-body-block">
                     <h3>{block.title}</h3>
                     <p>{block.content}</p>
                   </article>
-                ))}
-              </div>
+                </ScrollReveal>
+              ))}
             </div>
           </div>
-        </section>
-      </ScrollReveal>
+        </div>
+      </section>
 
-      {/* Next Project Footer Bar */}
-      <ScrollReveal>
-        <section className="section section-rule detail-nav-section">
-          <div className="container-wide detail-nav-container">
-            <Link href="/work" className="text-link">
-              {copy.actions.backToArchive}
+      {/* Next Project Footer */}
+      <section className="section-rule detail-nav-section">
+        <div className="container-wide detail-nav-container">
+          <Link href="/work" className="button button-dark">
+            {copy.actions.backToArchive}
+          </Link>
+
+          <div className="detail-next-link-wrap">
+            <span className="eyebrow">{copy.actions.nextProject}</span>
+            <Link href={`/work/${nextProject.slug}`} className="detail-next-title">
+              {nextProject.name} <span>→</span>
             </Link>
-            <div className="detail-next-link-wrap">
-              <span className="meta-label">{copy.actions.nextProject}</span>
-              <Link href={`/work/${nextProject.slug}`} className="detail-next-title">
-                {nextProject.name} <span>→</span>
-              </Link>
-            </div>
           </div>
-        </section>
-      </ScrollReveal>
+        </div>
+      </section>
     </div>
   );
 }

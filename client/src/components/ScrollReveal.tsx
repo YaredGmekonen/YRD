@@ -5,7 +5,6 @@ interface ScrollRevealProps {
   children: React.ReactNode;
   enableBlur?: boolean;
   baseOpacity?: number;
-  baseRotation?: number;
   blurStrength?: number;
   containerClassName?: string;
   textClassName?: string;
@@ -13,38 +12,27 @@ interface ScrollRevealProps {
 
 export default function ScrollReveal({
   children,
-  enableBlur = true,
-  baseOpacity = 0.3,
-  blurStrength = 6,
   containerClassName = "",
   textClassName = "",
 }: ScrollRevealProps) {
-  // If children is plain text, split into words and animate progressively
+  // If string, animate words progressively while ensuring base text is always visible
   if (typeof children === "string") {
     const words = children.split(/\s+/).filter(Boolean);
     return (
-      <div className={`scroll-reveal ${containerClassName}`}>
+      <div className={`scroll-reveal-block ${containerClassName}`}>
         <p className={`scroll-reveal-text ${textClassName}`} style={{ display: "inline-flex", flexWrap: "wrap", gap: "0.28em" }}>
           {words.map((word, index) => (
             <motion.span
               key={index}
-              initial={{
-                opacity: baseOpacity,
-                filter: enableBlur ? `blur(${blurStrength}px)` : "none",
-                y: 8,
-              }}
-              whileInView={{
-                opacity: 1,
-                filter: "blur(0px)",
-                y: 0,
-              }}
-              viewport={{ once: true, amount: 0.15 }}
+              initial={{ opacity: 0.35, y: 6 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-20px" }}
               transition={{
-                duration: 0.45,
-                delay: Math.min(index * 0.02, 0.4),
+                duration: 0.35,
+                delay: Math.min(index * 0.015, 0.3),
                 ease: [0.16, 1, 0.3, 1],
               }}
-              style={{ display: "inline-block", willChange: "transform, opacity, filter" }}
+              style={{ display: "inline-block", willChange: "transform, opacity" }}
             >
               {word}
             </motion.span>
@@ -54,14 +42,14 @@ export default function ScrollReveal({
     );
   }
 
-  // If children is JSX components / sections, animate the container smoothly
+  // If JSX children, smoothly lift container into place without hiding
   return (
     <motion.div
-      className={`scroll-reveal-container ${containerClassName}`}
-      initial={{ opacity: 0, y: 20 }}
+      className={containerClassName}
+      initial={{ opacity: 0.7, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.08 }}
-      transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
     >
       {children}
     </motion.div>
