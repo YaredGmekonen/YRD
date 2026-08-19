@@ -87,14 +87,16 @@ export default function Home() {
                 text={copy.home.selectedTitle}
                 className="section-head-title"
                 splitType="words"
-                delay={40}
+                delay={30}
               />
               <p className="section-head-copy">{copy.home.selectedCopy}</p>
             </div>
           </div>
           <div className="project-list-v3">
             {copy.projects.map((project) => (
-              <ProjectCard key={project.id} project={project} />
+              <ScrollReveal key={project.id}>
+                <ProjectCard project={project} />
+              </ScrollReveal>
             ))}
           </div>
           <div className="all-work-link-wrap">
@@ -105,7 +107,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. Engineering Principle (ScrollReveal word-blur & rotation) */}
+      {/* 4. Engineering Principle (ScrollReveal word-blur & reveal) */}
       <section className="statement-section">
         <div className="container-wide statement-inner">
           <p className="eyebrow">
@@ -114,10 +116,9 @@ export default function Home() {
           </p>
           <div>
             <ScrollReveal
-              baseOpacity={0.12}
+              baseOpacity={0.4}
               enableBlur={true}
-              baseRotation={3}
-              blurStrength={8}
+              blurStrength={4}
               containerClassName="statement-scroll-wrap"
               textClassName="statement"
             >
@@ -137,17 +138,19 @@ export default function Home() {
               text={copy.home.serviceTitle}
               className="service-title"
               splitType="words"
-              delay={40}
+              delay={30}
             />
             <p className="service-aside">{copy.home.serviceAside}</p>
           </div>
           <div className="services-grid">
             {copy.services.map((service) => (
-              <article className="service-card" key={service.id}>
-                <span className="service-id">{service.id}</span>
-                <h3>{service.title}</h3>
-                <p>{service.copy}</p>
-              </article>
+              <ScrollReveal key={service.id}>
+                <article className="service-card">
+                  <span className="service-id">{service.id}</span>
+                  <h3>{service.title}</h3>
+                  <p>{service.copy}</p>
+                </article>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -161,10 +164,9 @@ export default function Home() {
         </p>
         <div>
           <ScrollReveal
-            baseOpacity={0.15}
+            baseOpacity={0.4}
             enableBlur={true}
-            baseRotation={2}
-            blurStrength={6}
+            blurStrength={4}
             textClassName="about-teaser-copy"
           >
             {copy.home.aboutTeaser}

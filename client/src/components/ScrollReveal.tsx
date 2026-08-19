@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState, useMemo } from "react";
-import "./ScrollReveal.css";
+import React from "react";
+import { motion } from "framer-motion";
 
 interface ScrollRevealProps {
   children: React.ReactNode;
@@ -14,65 +14,56 @@ interface ScrollRevealProps {
 export default function ScrollReveal({
   children,
   enableBlur = true,
-  baseOpacity = 0.35,
-  baseRotation = 0,
-  blurStrength = 4,
+  baseOpacity = 0.3,
+  blurStrength = 6,
   containerClassName = "",
   textClassName = "",
 }: ScrollRevealProps) {
-  const containerRef = useRef<HTMLHeadingElement>(null);
-  const [isInView, setIsInView] = useState(false);
-
-  const text = typeof children === "string" ? children : "";
-  const words = useMemo(() => {
-    return text.split(/\s+/).filter(Boolean);
-  }, [text]);
-
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsInView(true);
-        }
-      },
-      { threshold: 0.15, rootMargin: "0px 0px -50px 0px" }
-    );
-
-    observer.observe(el);
-
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div
-      ref={containerRef}
-      className={`scroll-reveal ${containerClassName}`}
-      style={{
-        transform: isInView ? "none" : `rotate(${baseRotation}deg)`,
-        transition: "transform 400ms cubic-bezier(0.23, 1, 0.32, 1)",
-      }}
-    >
-      <div className={`scroll-reveal-text ${textClassName}`}>
-        {words.map((word, index) => {
-          return (
-            <span
+  // If children is plain text, split into words and animate progressively
+  if (typeof children === "string") {
+    const words = children.split(/\s+/).filter(Boolean);
+    return (
+      <div className={`scroll-reveal ${containerClassName}`}>
+        <p className={`scroll-reveal-text ${textClassName}`} style={{ display: "inline-flex", flexWrap: "wrap", gap: "0.28em" }}>
+          {words.map((word, index) => (
+            <motion.span
               key={index}
-              className="scroll-reveal-word"
-              style={{
-                opacity: isInView ? 1 : baseOpacity,
-                filter: isInView ? "blur(0px)" : enableBlur ? `blur(${blurStrength}px)` : "none",
-                transform: isInView ? "translateY(0)" : "translateY(6px)",
-                transitionDelay: `${Math.min(index * 25, 600)}ms`,
+              initial={{
+                opacity: baseOpacity,
+                filter: enableBlur ? `blur(${blurStrength}px)` : "none",
+                y: 8,
               }}
+              whileInView={{
+                opacity: 1,
+                filter: "blur(0px)",
+                y: 0,
+              }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{
+                duration: 0.45,
+                delay: Math.min(index * 0.02, 0.4),
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              style={{ display: "inline-block", willChange: "transform, opacity, filter" }}
             >
               {word}
-            </span>
-          );
-        })}
+            </motion.span>
+          ))}
+        </p>
       </div>
-    </div>
+    );
+  }
+
+  // If children is JSX components / sections, animate the container smoothly
+  return (
+    <motion.div
+      className={`scroll-reveal-container ${containerClassName}`}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.08 }}
+      transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+    >
+      {children}
+    </motion.div>
   );
 }

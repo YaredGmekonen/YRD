@@ -1,8 +1,8 @@
 // YRD. Technical Gallery: full project archive showcasing all 3 verified case studies.
 import { Link } from "wouter";
-import ScrollReveal from "@/components/ScrollReveal";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ProjectCard from "@/components/ProjectCard";
+import ScrollReveal from "@/components/ScrollReveal";
 
 export default function Work() {
   const { copy } = useLanguage();
@@ -30,23 +30,23 @@ export default function Work() {
       </section>
 
       {/* Full Work Archive Grid */}
-      <ScrollReveal>
-        <section className="section">
-          <div className="container-wide">
-            <div className="project-list-v3">
-              {copy.projects.map((project) => (
-                <ProjectCard key={project.id} project={project} />
-              ))}
-            </div>
-
-            <div className="all-work-link-wrap">
-              <Link href="/contact" className="text-link all-work-link">
-                {copy.actions.projectPrompt} <span>→</span>
-              </Link>
-            </div>
+      <section className="section">
+        <div className="container-wide">
+          <div className="project-list-v3">
+            {copy.projects.map((project) => (
+              <ScrollReveal key={project.id}>
+                <ProjectCard project={project} />
+              </ScrollReveal>
+            ))}
           </div>
-        </section>
-      </ScrollReveal>
+
+          <div className="all-work-link-wrap">
+            <Link href="/contact" className="text-link all-work-link">
+              {copy.actions.projectPrompt} <span>→</span>
+            </Link>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
