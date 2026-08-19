@@ -43,10 +43,10 @@ export const translations = {
       clients: [
         { name: "Kerkeha Tech Solutions", role: "Infrastructure & Security", logo: "/manus-storage/kerkeha-tech-transparent_8aa8082a.png", href: "https://kerkehatech.com/" },
         { name: "Silicon Labs", role: "Tech & Innovation", logo: "/manus-storage/silicon-labs-transparent_afa56343.png" },
-        { name: "XO Ethiopia", role: "Gaming & Super-App", logo: "/manus-storage/yrd-symbol-mark_260cf648.png", href: "/work/xo-ethiopia" },
-        { name: "Makiba Digital", role: "Digital Strategy", logo: "/manus-storage/makiba-digital-official-transparent_07a9fa6a.png" },
-        { name: "H.O.P.E. Studio", role: "Creative Services", logo: "/manus-storage/yrd-symbol-mark_260cf648.png", href: "/work/hope-studio" },
-        { name: "EYEA", role: "Enterprise Ecosystem", logo: "/manus-storage/yrd-symbol-mark_260cf648.png", href: "https://eyea.et/" },
+        { name: "XO Ethiopia", role: "Gaming & Super-App", logo: "/manus-storage/xo-ethiopia-logo.png", href: "/work/xo-ethiopia" },
+        { name: "Makiba Digital", role: "Digital Strategy", logo: "/manus-storage/makiba-logo.png" },
+        { name: "H.O.P.E. Studio", role: "Creative Services", logo: "/manus-storage/hope-studio-logo.png", href: "/work/hope-studio" },
+        { name: "EYEA", role: "Enterprise Ecosystem", logo: "/manus-storage/eyea-logo.png", href: "https://eyea.et/" },
       ],
     },
     home: {
@@ -281,10 +281,10 @@ export const translations = {
       clients: [
         { name: "Kerkeha Tech Solutions", role: "መሰረተ ልማት እና ደህንነት", logo: "/manus-storage/kerkeha-tech-transparent_8aa8082a.png", href: "https://kerkehatech.com/" },
         { name: "Silicon Labs", role: "ቴክኖሎጂ እና ፈጠራ", logo: "/manus-storage/silicon-labs-transparent_afa56343.png" },
-        { name: "XO Ethiopia", role: "ጌሚንግ እና ሱፐር-አፕ", logo: "/manus-storage/yrd-symbol-mark_260cf648.png", href: "/work/xo-ethiopia" },
-        { name: "Makiba Digital", role: "ዲጂታል ስትራቴጂ", logo: "/manus-storage/makiba-digital-official-transparent_07a9fa6a.png" },
-        { name: "H.O.P.E. Studio", role: "የፈጠራ አገልግሎቶች", logo: "/manus-storage/yrd-symbol-mark_260cf648.png", href: "/work/hope-studio" },
-        { name: "EYEA", role: "የኢንተርፕራይዝ ስነ-ምህዳር", logo: "/manus-storage/yrd-symbol-mark_260cf648.png", href: "https://eyea.et/" },
+        { name: "XO Ethiopia", role: "ጌሚንግ እና ሱፐር-አፕ", logo: "/manus-storage/xo-ethiopia-logo.png", href: "/work/xo-ethiopia" },
+        { name: "Makiba Digital", role: "ዲጂታል ስትራቴጂ", logo: "/manus-storage/makiba-logo.png" },
+        { name: "H.O.P.E. Studio", role: "የፈጠራ አገልግሎቶች", logo: "/manus-storage/hope-studio-logo.png", href: "/work/hope-studio" },
+        { name: "EYEA", role: "የኢንተርፕራይዝ ስነ-ምህዳር", logo: "/manus-storage/eyea-logo.png", href: "https://eyea.et/" },
       ],
     },
     home: {

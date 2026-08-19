@@ -6,7 +6,6 @@ interface SplitTextProps {
   className?: string;
   delay?: number;
   duration?: number;
-  ease?: string | number[];
   splitType?: "chars" | "words";
   textAlign?: "left" | "center" | "right";
   tag?: "p" | "h1" | "h2" | "h3" | "h4" | "span" | "div";
@@ -15,9 +14,9 @@ interface SplitTextProps {
 export default function SplitText({
   text,
   className = "",
-  delay = 30,
-  duration = 0.6,
-  splitType = "chars",
+  delay = 25,
+  duration = 0.5,
+  splitType = "words",
   textAlign = "left",
   tag: Tag = "p",
 }: SplitTextProps) {
@@ -26,20 +25,20 @@ export default function SplitText({
     return (
       <Tag
         className={className}
-        style={{ textAlign, display: "inline-flex", flexWrap: "wrap", gap: "0.28em" }}
+        style={{ textAlign, display: "inline-flex", flexWrap: "wrap", gap: "0.25em" }}
       >
         {words.map((word, i) => (
           <motion.span
             key={i}
-            initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
-            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            viewport={{ once: true, margin: "-60px" }}
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.1 }}
             transition={{
               duration,
-              delay: (i * delay) / 1000,
+              delay: Math.min((i * delay) / 1000, 0.4),
               ease: [0.23, 1, 0.32, 1],
             }}
-            style={{ display: "inline-block", willChange: "transform, opacity, filter" }}
+            style={{ display: "inline-block", willChange: "transform, opacity" }}
           >
             {word}
           </motion.span>
@@ -53,17 +52,17 @@ export default function SplitText({
   return (
     <Tag
       className={className}
-      style={{ textAlign, display: "inline-block", overflow: "hidden" }}
+      style={{ textAlign, display: "inline-block" }}
     >
       {letters.map((char, i) => (
         <motion.span
           key={i}
-          initial={{ opacity: 0, y: 28, filter: "blur(4px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          viewport={{ once: true, margin: "-40px" }}
+          initial={{ opacity: 0, y: 14 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.1 }}
           transition={{
             duration,
-            delay: (i * delay) / 1000,
+            delay: Math.min((i * delay) / 1000, 0.5),
             ease: [0.23, 1, 0.32, 1],
           }}
           style={{

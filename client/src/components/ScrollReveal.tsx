@@ -3,28 +3,25 @@ import "./ScrollReveal.css";
 
 interface ScrollRevealProps {
   children: React.ReactNode;
-  scrollContainerRef?: React.RefObject<HTMLElement | null>;
   enableBlur?: boolean;
   baseOpacity?: number;
   baseRotation?: number;
   blurStrength?: number;
   containerClassName?: string;
   textClassName?: string;
-  rotationEnd?: string;
-  wordAnimationEnd?: string;
 }
 
 export default function ScrollReveal({
   children,
   enableBlur = true,
-  baseOpacity = 0.1,
-  baseRotation = 3,
+  baseOpacity = 0.35,
+  baseRotation = 0,
   blurStrength = 4,
   containerClassName = "",
   textClassName = "",
 }: ScrollRevealProps) {
   const containerRef = useRef<HTMLHeadingElement>(null);
-  const [progress, setProgress] = useState(0);
+  const [isInView, setIsInView] = useState(false);
 
   const text = typeof children === "string" ? children : "";
   const words = useMemo(() => {
@@ -35,56 +32,40 @@ export default function ScrollReveal({
     const el = containerRef.current;
     if (!el) return;
 
-    const handleScroll = () => {
-      const rect = el.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-      
-      // Calculate progress based on position in viewport
-      const start = windowHeight * 0.9;
-      const end = windowHeight * 0.3;
-      
-      let p = (start - rect.top) / (start - end);
-      p = Math.max(0, Math.min(1, p));
-      setProgress(p);
-    };
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+        }
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -50px 0px" }
+    );
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
+    observer.observe(el);
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => observer.disconnect();
   }, []);
 
-  const containerRotate = baseRotation * (1 - progress);
-
   return (
-    <h2
+    <div
       ref={containerRef}
       className={`scroll-reveal ${containerClassName}`}
       style={{
-        transform: `rotate(${containerRotate}deg)`,
-        transformOrigin: "0% 50%",
-        transition: "transform 200ms ease-out",
+        transform: isInView ? "none" : `rotate(${baseRotation}deg)`,
+        transition: "transform 400ms cubic-bezier(0.23, 1, 0.32, 1)",
       }}
     >
       <div className={`scroll-reveal-text ${textClassName}`}>
         {words.map((word, index) => {
-          const wordThreshold = index / words.length;
-          const isRevealed = progress >= wordThreshold;
-
-          const opacity = isRevealed ? 1 : baseOpacity;
-          const blur = isRevealed ? 0 : enableBlur ? blurStrength : 0;
-
           return (
             <span
               key={index}
               className="scroll-reveal-word"
               style={{
-                opacity,
-                filter: `blur(${blur}px)`,
-                transform: isRevealed ? "translateY(0)" : "translateY(4px)",
-                transitionDelay: `${(index % 6) * 20}ms`,
+                opacity: isInView ? 1 : baseOpacity,
+                filter: isInView ? "blur(0px)" : enableBlur ? `blur(${blurStrength}px)` : "none",
+                transform: isInView ? "translateY(0)" : "translateY(6px)",
+                transitionDelay: `${Math.min(index * 25, 600)}ms`,
               }}
             >
               {word}
@@ -92,6 +73,6 @@ export default function ScrollReveal({
           );
         })}
       </div>
-    </h2>
+    </div>
   );
 }
