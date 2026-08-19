@@ -32,6 +32,7 @@ export default function Work() {
       {/* Full Work Archive Grid */}
       <section className="section">
         <div className="container-wide">
+          <h2 className="sr-only">Verified Case Studies & System Architecture</h2>
           <div className="project-list-v3">
             {copy.projects.map((project) => (
               <ScrollReveal key={project.id}>

@@ -57,6 +57,7 @@ img { display: block; max-width: 100%; }
 .site-shell { min-height: 100vh; overflow: clip; background: var(--ink); transition: background-color 240ms var(--ease-out), color 240ms var(--ease-out); }
 .page-wrap { min-height: 60vh; }
 .container-wide { width: min(100% - 40px, 1410px); margin: 0 auto; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0; }
 .section { padding: 120px 0; }
 .section-rule { border-top: 1px solid var(--line); }
 .eyebrow, .meta-label, .page-hero-status, .contact-catalogue, .hero-availability, .hero-index, .art-coordinate, .footer-meta, .mobile-phone-rail { font-family: var(--mono); font-size: 10px; font-weight: 500; line-height: 1.5; letter-spacing: 0.08em; text-transform: uppercase; }

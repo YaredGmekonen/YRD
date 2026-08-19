@@ -1,7 +1,6 @@
 // YRD. Technical Gallery: biography, methodology, and direct working process.
 import { Link } from "wouter";
 import ScrollReveal from "@/components/ScrollReveal";
-import SplitText from "@/components/SplitText";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function About() {
@@ -30,10 +29,10 @@ export default function About() {
 
       {/* Context Biography */}
       <section className="container-wide about-layout">
-        <p className="eyebrow">
+        <h2 className="eyebrow">
           <i className="signal-dot"></i>
           {copy.about.contextKicker}
-        </p>
+        </h2>
         <div>
           <ScrollReveal
             baseOpacity={0.4}
@@ -54,10 +53,10 @@ export default function About() {
       {/* Process list */}
       <section className="section section-rule">
         <div className="container-wide process-block">
-          <p className="eyebrow">
+          <h2 className="eyebrow">
             <i className="signal-dot"></i>
             {copy.about.processKicker}
-          </p>
+          </h2>
           <div className="process-list">
             {copy.about.process.map(([id, title, description]) => (
               <ScrollReveal key={id}>
@@ -75,10 +74,10 @@ export default function About() {
       {/* Expectations grid */}
       <section className="section section-rule">
         <div className="container-wide process-block">
-          <p className="eyebrow">
+          <h2 className="eyebrow">
             <i className="signal-dot"></i>
             {copy.about.expectKicker}
-          </p>
+          </h2>
           <div className="expect-list">
             {copy.about.expectations.map((expectation, index) => (
               <ScrollReveal key={expectation}>
