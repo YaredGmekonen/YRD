@@ -1,72 +1,128 @@
-// YRD. Technical Gallery: persistent footer with primary site-wide consultation banner and direct contact channels.
+// YRD. Technical Gallery: iconic glowing consultation card & structured 3-column footer.
 import { Link } from "wouter";
 import BrandLogo from "@/components/BrandLogo";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { Send, Linkedin, Instagram, Mail, ArrowUpRight } from "lucide-react";
 
 export default function SiteFooter() {
-  const { copy } = useLanguage();
+  const { copy, language } = useLanguage();
   const footer = copy.footer;
 
   return (
     <footer className="site-footer">
-      {/* Primary Site-Wide Consultation Banner */}
-      <section className="footer-consultation-banner">
-        <div className="container-wide footer-consultation-inner">
-          <div className="footer-consultation-copy">
-            <p className="eyebrow">
+      {/* 1. Large Glowing Consultation Card */}
+      <div className="container-wide footer-card-container">
+        <div className="glow-consultation-card">
+          <div className="glow-card-ambient" aria-hidden="true"></div>
+          <div className="glow-card-content">
+            <p className="eyebrow glow-kicker">
               <i className="signal-dot"></i>
-              Project Intake & Advisory
+              {language === "am" ? "ለተገቢው ስራ ዝግጁ ነኝ" : "AVAILABLE FOR THE RIGHT WORK"}
             </p>
-            <h2 className="footer-consultation-title">{footer.consultationTitle}</h2>
-            <p className="footer-consultation-desc">{footer.consultationCopy}</p>
-          </div>
-          <div className="footer-consultation-action">
+
+            <h2 className="glow-card-title">
+              <span className="accent-h">H</span>ave something <br className="hidden sm:inline" />
+              worth building?
+            </h2>
+
+            <p className="glow-card-desc">
+              {language === "am"
+                ? "ምን ላይ እንደምትሰሩ ይንገሩኝ፤ ሀሳቤን እነግራችኋለሁ።"
+                : "Tell me what you're working on. I'll tell you what I think."}
+            </p>
+
             <a
-              className="button button-signal consultation-btn"
+              className="glow-card-btn"
               href="https://t.me/YRDscheduleBOT?start=intake"
               target="_blank"
               rel="noreferrer"
             >
-              {footer.ctaButton} <span>↗</span>
+              <span className="glow-btn-icon">
+                <ArrowUpRight size={16} strokeWidth={2.5} />
+              </span>
+              <span>{footer.ctaButton}</span>
             </a>
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* Global Footer Links & Meta */}
+      {/* 2. Structured Footer Columns */}
       <div className="container-wide">
-        <div className="footer-main">
-          <div>
+        <div className="footer-columns-grid">
+          {/* Col 1: Brand & Social */}
+          <div className="footer-col-brand">
             <Link href="/" className="brand-link" aria-label="YRD. home">
-              <BrandLogo />
+              <BrandLogo variant="wordmark" className="footer-brand-logo" />
             </Link>
             <p className="footer-tagline">{footer.tagline}</p>
+
+            <div className="footer-social-circles">
+              <a
+                href="https://t.me/Yada_cve"
+                target="_blank"
+                rel="noreferrer"
+                className="social-circle-btn"
+                aria-label="Telegram"
+              >
+                <Send size={15} />
+              </a>
+              <a
+                href="https://linkedin.com/in/yared-mekonen-5272642ba"
+                target="_blank"
+                rel="noreferrer"
+                className="social-circle-btn"
+                aria-label="LinkedIn"
+              >
+                <Linkedin size={15} />
+              </a>
+              <a
+                href="https://www.instagram.com/yared1052/"
+                target="_blank"
+                rel="noreferrer"
+                className="social-circle-btn"
+                aria-label="Instagram"
+              >
+                <Instagram size={15} />
+              </a>
+              <a
+                href="mailto:yaredmekonen405@gmail.com"
+                className="social-circle-btn"
+                aria-label="Email"
+              >
+                <Mail size={15} />
+              </a>
+            </div>
           </div>
-          <nav className="footer-links" aria-label="Footer navigation">
-            <Link href="/work">{copy.nav.work}</Link>
-            <Link href="/about">{copy.nav.about}</Link>
-            <Link href="/contact">{copy.nav.contact}</Link>
-          </nav>
-          <div className="footer-links" aria-label="Social links">
-            <a href="https://t.me/Yada_cve" target="_blank" rel="noreferrer">
-              {footer.social[0]}
-            </a>
-            <a
-              href="https://linkedin.com/in/yared-mekonen-5272642ba"
-              target="_blank"
-              rel="noreferrer"
-            >
-              {footer.social[1]}
-            </a>
-            <a href="https://www.instagram.com/yared1052/" target="_blank" rel="noreferrer">
-              {footer.social[2]}
-            </a>
-            <a href="mailto:yaredmekonen405@gmail.com">{footer.social[3]}</a>
+
+          {/* Col 2: Navigate */}
+          <div className="footer-col-nav">
+            <span className="footer-col-title">{language === "am" ? "አሰሳ" : "Navigate"}</span>
+            <nav className="footer-nav-list">
+              <Link href="/work">{copy.nav.work}</Link>
+              <Link href="/about">{copy.nav.about}</Link>
+              <Link href="/contact">{copy.nav.contact}</Link>
+            </nav>
+          </div>
+
+          {/* Col 3: Connect */}
+          <div className="footer-col-connect">
+            <span className="footer-col-title">{language === "am" ? "ግንኙነት" : "Connect"}</span>
+            <div className="footer-connect-list">
+              <a href="https://t.me/Yada_cve" target="_blank" rel="noreferrer">
+                @yada_cve
+              </a>
+              <a href="mailto:yaredmekonen405@gmail.com">yaredmekonen405@gmail.com</a>
+              <span className="footer-location-text">
+                {language === "am" ? "አዲስ አበባ፣ ኢትዮጵያ" : "ADDIS ABABA, ETHIOPIA"}
+              </span>
+            </div>
           </div>
         </div>
-        <div className="footer-meta">
-          <span>{footer.location}</span>
+
+        {/* 3. Bottom Meta Bar */}
+        <div className="footer-meta-bar">
           <span>{footer.copyright}</span>
+          <span className="footer-meta-loc">{footer.location}</span>
         </div>
       </div>
     </footer>
