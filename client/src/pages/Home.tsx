@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { useEffect, useState, type MouseEvent } from "react";
 import ProjectCard from "@/components/ProjectCard";
 import ScrollReveal from "@/components/ScrollReveal";
+import SplitText from "@/components/SplitText";
 import { useLanguage } from "@/contexts/LanguageContext";
 import PartnerLoop from "@/components/PartnerLoop";
 
@@ -73,85 +74,106 @@ export default function Home() {
       <PartnerLoop />
 
       {/* 3. Selected Work */}
-      <ScrollReveal>
-        <section className="section">
-          <div className="container-wide">
-            <div className="section-head">
-              <p className="eyebrow">
-                <i className="signal-dot"></i>
-                {copy.home.selectedKicker}
-              </p>
-              <div>
-                <h2 className="section-head-title">{copy.home.selectedTitle}</h2>
-                <p className="section-head-copy">{copy.home.selectedCopy}</p>
-              </div>
-            </div>
-            <div className="project-list-v3">
-              {copy.projects.map((project) => (
-                <ProjectCard key={project.id} project={project} />
-              ))}
-            </div>
-            <div className="all-work-link-wrap">
-              <Link href="/work" className="text-link all-work-link">
-                {copy.actions.seeAllWork} <span>→</span>
-              </Link>
-            </div>
-          </div>
-        </section>
-      </ScrollReveal>
-
-      {/* 4. Principle Section */}
-      <ScrollReveal>
-        <section className="statement-section">
-          <div className="container-wide statement-inner">
+      <section className="section">
+        <div className="container-wide">
+          <div className="section-head">
             <p className="eyebrow">
               <i className="signal-dot"></i>
-              {copy.home.principleKicker}
+              {copy.home.selectedKicker}
             </p>
             <div>
-              <h2 className="statement">{copy.home.principle}</h2>
-              <p className="statement-support">{copy.home.principleCopy}</p>
+              <SplitText
+                tag="h2"
+                text={copy.home.selectedTitle}
+                className="section-head-title"
+                splitType="words"
+                delay={40}
+              />
+              <p className="section-head-copy">{copy.home.selectedCopy}</p>
             </div>
           </div>
-        </section>
-      </ScrollReveal>
-
-      {/* 5. Services Grid */}
-      <ScrollReveal>
-        <section className="section">
-          <div className="container-wide">
-            <div className="service-intro">
-              <h2 className="service-title">{copy.home.serviceTitle}</h2>
-              <p className="service-aside">{copy.home.serviceAside}</p>
-            </div>
-            <div className="services-grid">
-              {copy.services.map((service) => (
-                <article className="service-card" key={service.id}>
-                  <span className="service-id">{service.id}</span>
-                  <h3>{service.title}</h3>
-                  <p>{service.copy}</p>
-                </article>
-              ))}
-            </div>
+          <div className="project-list-v3">
+            {copy.projects.map((project) => (
+              <ProjectCard key={project.id} project={project} />
+            ))}
           </div>
-        </section>
-      </ScrollReveal>
-
-      {/* 6. Brief About Teaser */}
-      <ScrollReveal>
-        <section className="container-wide about-teaser">
-          <p className="eyebrow">
-            <i className="signal-dot"></i>
-            {copy.home.aboutKicker}
-          </p>
-          <div>
-            <p className="about-teaser-copy">{copy.home.aboutTeaser}</p>
-            <Link href="/about" className="text-link">
-              {copy.actions.readMore} <span>→</span>
+          <div className="all-work-link-wrap">
+            <Link href="/work" className="text-link all-work-link">
+              {copy.actions.seeAllWork} <span>→</span>
             </Link>
           </div>
-        </section>
-      </ScrollReveal>
+        </div>
+      </section>
+
+      {/* 4. Engineering Principle (ScrollReveal word-blur & rotation) */}
+      <section className="statement-section">
+        <div className="container-wide statement-inner">
+          <p className="eyebrow">
+            <i className="signal-dot"></i>
+            {copy.home.principleKicker}
+          </p>
+          <div>
+            <ScrollReveal
+              baseOpacity={0.12}
+              enableBlur={true}
+              baseRotation={3}
+              blurStrength={8}
+              containerClassName="statement-scroll-wrap"
+              textClassName="statement"
+            >
+              {copy.home.principle}
+            </ScrollReveal>
+            <p className="statement-support">{copy.home.principleCopy}</p>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Services Grid */}
+      <section className="section">
+        <div className="container-wide">
+          <div className="service-intro">
+            <SplitText
+              tag="h2"
+              text={copy.home.serviceTitle}
+              className="service-title"
+              splitType="words"
+              delay={40}
+            />
+            <p className="service-aside">{copy.home.serviceAside}</p>
+          </div>
+          <div className="services-grid">
+            {copy.services.map((service) => (
+              <article className="service-card" key={service.id}>
+                <span className="service-id">{service.id}</span>
+                <h3>{service.title}</h3>
+                <p>{service.copy}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Brief About Teaser (ScrollReveal word blur) */}
+      <section className="container-wide about-teaser">
+        <p className="eyebrow">
+          <i className="signal-dot"></i>
+          {copy.home.aboutKicker}
+        </p>
+        <div>
+          <ScrollReveal
+            baseOpacity={0.15}
+            enableBlur={true}
+            baseRotation={2}
+            blurStrength={6}
+            textClassName="about-teaser-copy"
+          >
+            {copy.home.aboutTeaser}
+          </ScrollReveal>
+          <Link href="/about" className="text-link">
+            {copy.actions.readMore} <span>→</span>
+          </Link>
+        </div>
+      </section>
     </>
   );
 }

@@ -1,4 +1,4 @@
-// YRD. Technical Gallery: global dark studio shell, Lenis smooth scrolling, persistent navigation, and clean multi-page routing.
+// YRD. Technical Gallery: global dark studio shell, initial monogram curtain reveal, persistent navigation, and clean multi-page routing.
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
@@ -8,7 +8,7 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import SiteFooter from "./components/SiteFooter";
 import SiteHeader from "./components/SiteHeader";
 import ClickSpark from "./components/ClickSpark";
-import SmoothScroll from "./components/SmoothScroll";
+import InitialLoader from "./components/InitialLoader";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import About from "./pages/About";
@@ -46,21 +46,20 @@ export default function App() {
         <LanguageProvider>
           <TooltipProvider>
             <Toaster />
-            <SmoothScroll>
-              <ClickSpark>
-                <div className="site-shell">
-                  <ScrollToTop />
-                  <SiteHeader />
-                  <main className="page-wrap">
-                    <Router />
-                  </main>
-                  <SiteFooter />
-                  <a className="mobile-phone-rail" href="tel:+251939484533">
-                    <span className="signal-dot"></span>+251 93 948 4533
-                  </a>
-                </div>
-              </ClickSpark>
-            </SmoothScroll>
+            <InitialLoader />
+            <ClickSpark>
+              <div className="site-shell">
+                <ScrollToTop />
+                <SiteHeader />
+                <main className="page-wrap">
+                  <Router />
+                </main>
+                <SiteFooter />
+                <a className="mobile-phone-rail" href="tel:+251939484533">
+                  <span className="signal-dot"></span>+251 93 948 4533
+                </a>
+              </div>
+            </ClickSpark>
           </TooltipProvider>
         </LanguageProvider>
       </ThemeProvider>
